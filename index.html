@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="Family Spinner"/>
+  <meta name="theme-color" content="#0d0d1a"/>
+  <meta name="description" content="The Family Spinner — Let fate decide dinner, activities, games and more!"/>
+  <link rel="manifest" href="manifest.json"/>
+  <link rel="apple-touch-icon" href="icons/icon-192.png"/>
+  <title>🎰 Family Spinner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+<div class="scanlines"></div>
+
+<div class="app">
+
+  <!-- ── HEADER ── -->
+  <header class="header">
+    <div class="header-glow"></div>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🎰</span>
+        <div>
+          <div class="logo-title">Family Spinner</div>
+          <div class="logo-sub">Let fate decide!</div>
+        </div>
+      </div>
+      <button class="btn-history" onclick="UI.showHistory()" title="History">
+        <span>📜</span>
+        <span class="history-badge" id="history-badge">0</span>
+      </button>
+    </div>
+
+    <!-- Family legend pills -->
+    <div class="family-legend" id="family-legend">
+      <!-- Injected by JS -->
+    </div>
+  </header>
+
+  <!-- ── MODE SELECTOR ── -->
+  <section class="mode-section">
+    <div class="mode-label">Choose your battle:</div>
+    <div class="mode-grid" id="mode-grid"></div>
+  </section>
+
+  <!-- ── INPUT SECTION ── -->
+  <section class="input-section" id="input-section">
+    <div class="input-header">
+      <div class="input-title" id="input-title">What are the options?</div>
+      <div class="input-actions">
+        <button class="btn-mini" onclick="UI.loadSuggestions()" title="Load saved">💾 Saved</button>
+        <button class="btn-mini btn-mini-add" onclick="UI.addInput()" title="Add option">+ Add</button>
+      </div>
+    </div>
+
+    <!-- Owner hint -->
+    <div class="owner-hint">
+      <span>👆 Tap a family avatar to assign who suggested each option</span>
+    </div>
+
+    <div class="inputs-wrap" id="inputs-wrap"></div>
+
+    <!-- Suggestion chips -->
+    <div class="suggestions-area" id="suggestions-area" style="display:none">
+      <div class="suggestions-label">Previously used:</div>
+      <div class="suggestion-chips" id="suggestion-chips"></div>
+    </div>
+
+    <div class="input-footer">
+      <button class="btn-clear-all" onclick="UI.clearAll()">🗑 Clear all</button>
+      <button class="btn-save-list" onclick="UI.saveList()">💾 Save list</button>
+    </div>
+  </section>
+
+  <!-- ── SPIN BUTTON ── -->
+  <div class="spin-wrap">
+    <button class="btn-spin" id="btn-spin" onclick="Spinner.spin()">
+      <span class="spin-icon">🎲</span>
+      <span class="spin-text">SPIN IT!</span>
+      <div class="spin-ripple"></div>
+    </button>
+  </div>
+
+  <!-- ── WHEEL MODAL ── -->
+  <div class="modal-overlay" id="wheel-modal" style="display:none">
+    <div class="wheel-container" id="wheel-container">
+      <div class="disco-ring" id="disco-ring"></div>
+      <canvas id="wheel-canvas" width="340" height="340"></canvas>
+      <div class="wheel-pointer">▼</div>
+      <div class="wheel-cap">🎰</div>
+    </div>
+    <button class="btn-skip" onclick="Spinner.skipToResult()">Skip ⏭</button>
+  </div>
+
+  <!-- ── RESULT MODAL ── -->
+  <div class="modal-overlay result-overlay" id="result-modal" style="display:none">
+    <div class="result-card" id="result-card">
+      <!-- Owner banner — shown when a family member owns the winning option -->
+      <div class="result-owner-banner" id="result-owner-banner" style="display:none"></div>
+
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <div class="result-label">The spinner has spoken!</div>
+      <div class="result-text" id="result-text">Pizza!</div>
+      <div class="result-sub" id="result-sub">Time to make it happen 🚀</div>
+      <div class="result-actions">
+        <button class="btn-again" onclick="Spinner.again()">🔄 Spin Again</button>
+        <button class="btn-close-result" onclick="UI.closeResult()">✅ Let's go!</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HISTORY MODAL ── -->
+  <div class="modal-overlay" id="history-modal" style="display:none" onclick="UI.closeHistory(event)">
+    <div class="history-card" onclick="event.stopPropagation()">
+      <div class="history-header">
+        <span>📜 Spin History</span>
+        <button onclick="UI.closeHistory()" class="btn-x">✕</button>
+      </div>
+      <div class="history-list" id="history-list"></div>
+      <button class="btn-clear-history" onclick="UI.clearHistory()">🗑 Clear History</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/data.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/wheel.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/app.js"></script>
+<script>
+  if (location.search.includes('test=1')) {
+    const s = document.createElement('script');
+    s.src = 'tests/wheel.test.js';
+    document.body.appendChild(s);
+  }
+</script>
+</body>
+</html>

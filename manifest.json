@@ -1,0 +1,42 @@
+{
+  "name": "Family Spinner 🎰",
+  "short_name": "Spinner",
+  "description": "Let fate decide — dinner, activities, games and more! The fun family decision maker.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0d0d1a",
+  "theme_color": "#0d0d1a",
+  "orientation": "portrait-primary",
+  "scope": "./",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "games", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Dinner Picker",
+      "short_name": "Dinner",
+      "description": "Pick tonight's dinner",
+      "url": "./?mode=dinner",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Activity Chooser",
+      "short_name": "Activity",
+      "description": "Choose a family activity",
+      "url": "./?mode=activity",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

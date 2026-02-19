@@ -7,8 +7,8 @@ Spin the wheel to settle any family debate — what's for dinner, what to do, wh
 ---
 
 ## PUBLISHED HERE
-[[https://prran77.github.io/spinner/](https://prran77.github.io/family-spinner/)](https://prran77.github.io/family-spinner/)
-click above to go to the site
+https://prran77.github.io/family-spinner/
+Click above to go to the site
 
 ## ✨ Features
 
